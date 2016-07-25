@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3>Upload new CSV for report {{report.reportName}}</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="image" class="form-control">Upload CSV:</label></div>
+            <div class="col-sm-3">
+                <input type="file" name="csv" id="csv" value="{{report.image}}"/></div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-success">Save</button></div>
+            <div class="col-sm-3"></div>
+            <input type="hidden" name="reportUrl" id="reportUrl" value="{{report.reportUrl}}" class="form-control"/>
+        </div>
+    </form>
+
+    <br/><br/>
+        {{ csvResponse }}
+    <br/><br/>
+
+    You can download a copy of this CSV here: <a href="{{ public_url }}" class="btn btn-success">Download</a>
+
+    {% if csvRender %}
+        <table id="reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Organization Name</th>
+            <th>Organization ID</th>
+            <th>Amount Over</th>
+            <th>Amount Under</th>
+            <th>Label</th>
+            <th>Gift Type</th>
+            <th>Doner Type</th>
+            <th>Language</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for row in csvRender %}
+            <tr>
+            {% for cell in row %}
+                <td>{{ cell }}</td>
+            {% endfor %}
+             </tr>
+        {% endfor %}
+
+        </tbody>
+        </table>
+    {% endif %}
+
+{% endblock %}

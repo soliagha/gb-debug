@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>All reports</h3>
+
+    <div class="media-left" style="width: 800px">
+    {% if report.reportUrl %}
+        <a href="{{report.reportUrl}}" class="btn btn-primary btn-sm">
+            <i class="glyphicon glyphicon-download"></i>
+            Download report</a>
+        <a href="/reports/{{report.id}}/edit" class="btn btn-primary btn-sm">
+            <i class="glyphicon glyphicon-edit"></i>
+            Edit report</a>
+        <a href="/reports/{{report.id}}/delete" class="btn btn-danger btn-sm">
+            <i class="glyphicon glyphicon-trash"></i>
+            Delete report</a>
+        <a href="/reports/{{report.id}}/csv" class="btn btn-success btn-sm">
+            <i class="glyphicon glyphicon-upload"></i>
+            Upload CSV</a>
+
+    {% else %}
+        No report associated with this record.
+    {% endif %}
+    </div>
+
+    <div class="media">
+        <div class="media-body">
+            <h4 class="book-title">
+                {{report.reportName}}
+                <small>{{report.endDate}}</small>
+            </h4>
+            <h5 class="book-author">Report file name: {{report.reportName|default('Unknown', True)}}</h5>
+            <p class="book-description">Organization name: {{report.organizationName}}</p>
+            <p class="book-description">Fundtracker ID: {{report.organizationID}}</p>
+            <p class="book-description">Report start date: {{report.startDate}}</p>
+            <p class="book-description">Report end date: {{report.endDate}}</p>
+            <p class="book-description">Language: {{report.language}}</p>
+            <p class="book-description">Download URL: {{report.reportUrl|default('If blank, please upload a report or delete this record.', True)}}</p>
+        </div>
+</div>
+
+{% endblock %}

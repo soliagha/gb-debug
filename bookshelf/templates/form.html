@@ -1,0 +1,48 @@
+{# [START form] #}
+{% extends "base.html" %}
+
+{% block content %}
+<h3>{{action}} report</h3>
+
+<form method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="organizationName">Organization Name:</label>
+        <input type="text" name="organizationName" id="organizationName" value="{{report.organizationName}}" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="organizationID">Fundtracker ID:</label>
+        <input type="text" name="organizationID" id="organizationID" value="{{report.organizationID}}" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="startDate">Reporting year start date:</label>
+        <input type="text" name="startDate" id="startDate" value="{{report.startDate}}" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="endDate">Reporting year end date:</label>
+        <input type="text" name="endDate" id="endDate" value="{{report.endDate}}" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <label for="language">Language:</label>
+        <input type="text" name="language" id="language" value="{{report.language}}" class="form-control"/>
+    </div>
+
+    {# [START upload] #}
+    <div class="form-group">
+        <label for="image">Report file - Currently assigned report: <a href="{{report.reportUrl}}">{{report.reportName}}</a></label>
+        <input type="file" name="image" id="image" value="{{report.image}}"/>
+    </div>
+
+    <div class="form-group hidden">
+        <label for="reportUrl">Report URL</label>
+        <input type="text" name="reportUrl" id="reportUrl" value="{{report.reportUrl}}" class="form-control"/>
+    </div>
+    {# [END upload] #}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}
+{# [END form] #}
