@@ -30,14 +30,14 @@ DATA_BACKEND = 'cloudsql'
 
 # Google Cloud Project ID. This can be found on the 'Overview' page at
 # https://console.developers.google.com
-PROJECT_ID = 'firm-pentameter-138323'
+PROJECT_ID = 'cleanstart-1383'
 
 # SQLAlchemy configuration
 # Replace user, pass, host, and database with the respective values of your
 # Cloud SQL instance.
 SQLALCHEMY_DATABASE_URI = \
-    'mysql+pymysql://greasebelt:Tri33er1@173.194.81.46/reportdb'
+    'mysql+pymysql://greasebelt:Tri33er1@173.194.233.195/reportdb'
 
-CLOUD_STORAGE_BUCKET = 'firm-pentameter-138323.appspot.com'
+CLOUD_STORAGE_BUCKET = 'cleanstart-1383.appspot.com'
 MAX_CONTENT_LENGTH = 8 * 1024 * 1024
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif', 'pdf', 'txt', 'svg', 'csv'])
