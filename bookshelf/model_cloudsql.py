@@ -32,6 +32,7 @@ class Report(db.Model):
     reportName = db.Column(db.String(255))
     reportUrl = db.Column(db.String(255))
     language = db.Column(db.String(255))
+    csvUrl = db.Column(db.String(255))
     createdBy = db.Column(db.String(255))
     createdById = db.Column(db.String(255))
 

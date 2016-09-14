@@ -35,7 +35,7 @@ def _check_extension(filename, allowed_extensions):
             "{0} has an invalid name or extension".format(filename))
 
 
-def _safe_filename(filename):
+def _safe_filename(filename, id):
     """
     Generates a safe filename that is unlikely to collide with existing objects
     in Google Cloud Storage.
@@ -45,17 +45,17 @@ def _safe_filename(filename):
     filename = secure_filename(filename)
     date = datetime.datetime.utcnow().strftime("%Y-%m-%d-%H%M%S")
     basename, extension = filename.rsplit('.', 1)
-    return "{0}-{1}.{2}".format(basename, date, extension)
+    return "{0}-{1}.{2}".format(basename, id, extension)
 
 
 # [START upload_file]
-def upload_file(file_stream, filename, content_type):
+def upload_file(file_stream, filename, content_type, id):
     """
     Uploads a file to a given Cloud Storage bucket and returns the public url
     to the new object.
     """
     _check_extension(filename, current_app.config['ALLOWED_EXTENSIONS'])
-    filename = _safe_filename(filename)
+    filename = _safe_filename(filename, id)
 
     client = _get_storage_client()
     bucket = client.get_bucket(current_app.config['CLOUD_STORAGE_BUCKET'])
@@ -77,10 +77,10 @@ def upload_file(file_stream, filename, content_type):
 # not yet implemented
 def delete_file(filename):
 
-    new_name = filename.replace('https://storage.googleapis.com/greasebelt/', '')
+    new_name = filename.replace('https://storage.googleapis.com/' + current_app.config['CLOUD_STORAGE_BUCKET'] + '/', '')
 
     _check_extension(new_name, current_app.config['ALLOWED_EXTENSIONS'])
-    # new_name = _safe_filename(new_name)
+    # new_name = _safe_filename(new_nam)
 
     client = _get_storage_client()
     bucket = client.get_bucket(current_app.config['CLOUD_STORAGE_BUCKET'])

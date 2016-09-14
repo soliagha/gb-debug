@@ -5,7 +5,7 @@
 <h3>All reports</h3>
 
     <div class="media-left" style="width: 800px">
-    {% if report.reportUrl %}
+    {# if report.reportUrl #}
         <a href="{{report.reportUrl}}" class="btn btn-primary btn-sm">
             <i class="glyphicon glyphicon-download"></i>
             Download report</a>
@@ -19,9 +19,9 @@
             <i class="glyphicon glyphicon-upload"></i>
             Upload CSV</a>
 
-    {% else %}
-        No report associated with this record.
-    {% endif %}
+    {# else #}
+       {# No report associated with this record. #}
+    {# endif #}
     </div>
 
     <div class="media">

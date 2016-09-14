@@ -4,28 +4,24 @@
 
     <h3>All reports</h3>
 
+        {# START Search #}
         <form method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="form-inline col-sm-2">
                     <label for="organizationName">Organization Name:</label>
                 </div>
-
                 <div class="form-inline col-sm-2">
                     <input type="text" id="organizationName" name="organizationName" class="form-control" value="{{ search['organizationName'] }}">
                 </div>
-
                 <div class="form-inline col-sm-2">
                     <label for="organizationID">Fundertracker ID:</label>
                 </div>
-
                 <div class="form-inline col-sm-2">
                     <input type="text" id="organizationID" name="organizationID" class="form-control" value="{{ search['organizationID'] }}">
                 </div>
-
                 <div class="form-inline col-sm-2">
                     <label for="reportName">Report Name:</label>
                 </div>
-
                 <div class="form-inline col-sm-2">
                     <input type="text" id="reportName" name="reportName" class="form-control" value="{{ search['reportName'] }}">
                 </div>
@@ -50,18 +46,21 @@
                 </div>
             </div>
         </form>
+        {# END Search #}
 
+    {# START Report table #}
     <div class="media" style="float: none;">
     <table id="reports" class="table table-striped table-bordered" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Controls</th>
+                <th style="width: 100px">Controls</th>
                 <th>Report file name</th>
                 <th>Organization name</th>
                 <th>Fundtracker ID</th>
                 <th>Start date</th>
                 <th>End date</th>
                 <th>Language</th>
+                <th style="width: 50px">CSV</th>
             </tr>
         </thead>
 
@@ -71,21 +70,17 @@
                 <div class="media-left" style="width: 800px">
                     <tr>
                         <td>
+                            {# If there is a reportUrl, diplay download option #}
                             {% if report.reportUrl %}
                                 <a href="{{report.reportUrl}}" title="Download report" class="btn btn-primary btn-sm">
                                     <i class="glyphicon glyphicon-download"></i></a>
-                                <a href="/reports/{{report.id}}/edit" title="Edit report" class="btn btn-primary btn-sm">
-                                    <i class="glyp555hicon glyphicon-edit"></i></a>
-                                <a href="/reports/{{report.id}}/delete" title="Delete report" class="btn btn-danger btn-sm">
-                                    <i class="glyphicon glyphicon-trash"></i></a>
-                                <a href="/reports/{{report.id}}/upload_csv" title="Upload CSV" class="btn btn-success btn-sm" >
-                                    <i class="glyphicon glyphicon-upload"></i></a>
-                                <a href="/reports/{{report.id}}/view_csv" title="Upload CSV" class="btn btn-success btn-sm" >
-                                    <i class="glyphicon glyphicon-eye-open"></i></a>
-                            {% else %}
-                                No report associated with this record.
-
                             {% endif %}
+
+                            <a href="/reports/{{report.id}}/edit" title="Edit report" class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-edit"></i></a>
+                            <a href="/reports/{{report.id}}/delete" title="Delete report" class="btn btn-danger btn-sm">
+                                <i class="glyphicon glyphicon-trash"></i></a>
+
                         </td>
                         <td>{{report.reportName|default('Unknown', True)}}</td>
                         <td>{{report.organizationName}}</td>
@@ -93,6 +88,19 @@
                         <td>{{report.startDate}}</td>
                         <td>{{report.endDate}}</td>
                         <td>{{report.language}}</td>
+                        <td>
+                            {# If these is a reportUrl, allow for CSV upload #}
+                            {% if report.reportUrl %}
+                                <a href="/reports/{{report.id}}/upload_csv" title="Upload CSV" class="btn btn-success btn-sm" >
+                                    <i class="glyphicon glyphicon-upload"></i></a>
+
+                                {# If there is a csvUrl, display view button #}
+                                {% if report.csvUrl %}
+                                    <a href="/reports/{{report.id}}/view_csv" title="Upload CSV" class="btn btn-success btn-sm" >
+                                        <i class="glyphicon glyphicon-eye-open"></i></a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
                     </tr>
                 </div>
             </div>
@@ -102,13 +110,13 @@
      </tbody>
     </table>
     </div>
+    {# END Report table #}
 
-        {# End report list #}
 
     {% if next_page_token %}
         <nav>
             <ul class="pager">
-                <li><a href="?page_token={{next_page_token}}">More</a></li>
+                <li><a href="?page_token={{next_page_token}}">More...</a></li>
             </ul>
         </nav>
     {% endif %}
